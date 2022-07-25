@@ -1,7 +1,7 @@
 /* 
   Created by: Nigel Diaz
   Created on: July 12, 2022
-  Last Updated on: July 23, 2022
+  Last Updated on: July 25, 2022
 */
 
 //declare global variables
@@ -215,7 +215,7 @@ function setDefaultEventListeners() {
       if(askedForName) {
         setUserName();
       }
-      else if(askedYesOrNoQuestion || troubleshooting) {
+      else if(askedYesOrNoQuestion || troubleshooting || askedToEndChat) {
         getUserReply();
       }
       else {
@@ -451,7 +451,7 @@ function getUserReply() {
       }
       else if(!chatbotReplied) {
         sendUserMessage();
-        if(askedToConfirmName) {
+        if(askedToConfirmName || askedToEndChat) {
           displayMessageWithTimeout(chatbotReplies[chatbotReplies.length-3][Math.floor(Math.random() * chatbotReplies[chatbotReplies.length-3].length)]
             +"\nPlease answer with a 'yes' or 'no'."); 
         }
@@ -483,32 +483,34 @@ function getUserReply() {
 function simplifyMessage(message) {
   message = message.toLowerCase();
   return message
-  .replace(/i'm/g, "i am")
-  .replace(/i'll/g, "i will")
-  .replace(/what's/g, "what is")
+  .replace(/[^a-zA-Z\d\s]/g, "")
+  .replace(/_/g, "")
+  .replace(/im/g, "i am")
+  .replace(/ill/g, "i will")
+  .replace(/whats/g, "what is")
   .replace(/whatcha/g, "what are you")
   .replace(/sup/g, "what is up?")
-  .replace(/who're/g, "who are")
+  .replace(/whore/g, "who are")
   .replace(/who r u/g, "who are you")
-  .replace(/how's/g, "how is")
-  .replace(/how've/g, "how have")
+  .replace(/hows/g, "how is")
+  .replace(/howve/g, "how have")
   .replace(/how r u/g, "how are you")
   .replace(/how are u/g, "how are you")
   .replace(/are u/g, "are you")
-  .replace(/wasn't/g, "was not")
-  .replace(/don't/g, "do not")
-  .replace(/doesn't/g, "does not")
-  .replace(/didn't/g, "did not")
-  .replace(/won't/g, "will not")
-  .replace(/aren't/g, "are not")
-  .replace(/wouldn't/g, "would not")
-  .replace(/couldn't/g, "could not")
-  .replace(/can't/g, "cannot")
+  .replace(/wasnt/g, "was not")
+  .replace(/dont/g, "do not")
+  .replace(/doesnt/g, "does not")
+  .replace(/didnt/g, "did not")
+  .replace(/wont/g, "will not")
+  .replace(/arent/g, "are not")
+  .replace(/wouldnt/g, "would not")
+  .replace(/couldnt/g, "could not")
+  .replace(/cant/g, "cannot")
   .replace(/ can not /g, " cannot ")
-  .replace(/hasn't/g, "has not")
+  .replace(/hasnt/g, "has not")
   .replace(/think u r/g, "think you are")
   .replace(/do u think/g, "do you think")
-  .replace(/you're/g, "you are")
+  .replace(/youre/g, "you are")
   .replace(/ur /g, "you are")
   .replace(/bare with me/g, "bear with me")
   .replace(/love u/g, "i love you")
@@ -538,7 +540,6 @@ function simplifyMessage(message) {
   .replace(/freezed/g, "froze")
   .replace(/functioning/g, "working")
   .replace(/ function /g, " work")
-  .replace(/wi-fi/g, "wifi")
   .replace(/notifs/g, "notifications")
   .replace(/10/g, "ten")
   .replace(/ very /g, " ")
